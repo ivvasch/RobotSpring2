@@ -10,8 +10,14 @@ public class Start {
         Object obj = context.getBean("t1000");
         if (obj instanceof ModelT1000) { 
             ModelT1000 t1000 = (ModelT1000) obj;
-            t1000.dance();
+//            t1000.action();
+            System.out.println(t1000 + " " + t1000.getHead());
 
+            t1000 = (ModelT1000) context.getBean("t1000");
+            System.out.println(t1000 + " " + t1000.getHead());
+
+            t1000 = (ModelT1000) context.getBean("t1000");
+            System.out.println(t1000 + " " + t1000.getHead());
         }
 
     }
