@@ -1,30 +1,24 @@
 package ru.ivan.robot;
 
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import ru.ivan.interfaces.Hand;
 import ru.ivan.interfaces.Head;
 import ru.ivan.interfaces.Leg;
 import ru.ivan.interfaces.Robot;
 
-public class ModelT1000 implements Robot {
-    private Hand hand;
-    private Head head;
-    private Leg leg;
+public class ModelT1000 extends BaseModel implements InitializingBean, DisposableBean {
 
     private String color;
     private int year;
     private boolean soundEnabled;
 
     public ModelT1000(Hand hand, Head head, Leg leg) {
-        super();
-        this.hand = hand;
-        this.head = head;
-        this.leg = leg;
+        super(hand, head, leg);
     }
 
     public ModelT1000(Hand hand, Head head, Leg leg, String color, int year, boolean soundEnabled) {
-        this.hand = hand;
-        this.head = head;
-        this.leg = leg;
+        super(hand, head, leg);
         this.color = color;
         this.year = year;
         this.soundEnabled = soundEnabled;
@@ -64,35 +58,11 @@ public class ModelT1000 implements Robot {
         this.soundEnabled = soundEnabled;
     }
 
-    public Hand getHand() {
-        return hand;
-    }
-
-    public void setHand(Hand hand) {
-        this.hand = hand;
-    }
-
-    public Head getHead() {
-        return head;
-    }
-
-    public void setHead(Head head) {
-        this.head = head;
-    }
-
-    public Leg getLeg() {
-        return leg;
-    }
-
-    public void setLeg(Leg leg) {
-        this.leg = leg;
-    }
-
     @Override
     public void action() {
-        head.calc();
-        hand.catchSomething();
-        leg.go();
+        getHead().calc();
+        getHand().catchSomething();
+        getLeg().go();
         System.out.println("color: " + color);
         System.out.println("year: " + year);
         System.out.println("can play sound: " + soundEnabled);
@@ -104,11 +74,14 @@ public class ModelT1000 implements Robot {
 
     }
 
-    public void initObject() {
-        System.out.println("init");
+    @Override
+    public void destroy() throws Exception {
+        System.out.println(this + " - method destroy()");
+
     }
 
-    public void destroyObject() {
-        System.out.println("destroy ");
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println(this + " - method init()");
     }
 }
