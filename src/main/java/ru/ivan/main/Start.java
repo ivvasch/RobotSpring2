@@ -23,7 +23,7 @@ public class Start {
 //        System.out.println("terminator3 " + terminator3);
 //
 //        t1000.action();
-        T1000Pool t1000Pool = (T1000Pool) context.getBean("t100Pool");
+        T1000Pool t1000Pool = (T1000Pool) context.getBean("t1000Pool");
         t1000Pool.action();
     }
 }
